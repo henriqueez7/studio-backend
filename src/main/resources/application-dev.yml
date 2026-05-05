@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/studio_henrique_corte}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        format_sql: ${JPA_FORMAT_SQL:true}
+
+jwt:
+  secret: ${JWT_SECRET:c3R1ZGlvaGVucmlxdWVjb3J0ZV9kZXZfc2VjcmV0X2Jhc2U2NF9wYXJhX2FwcGxvY2FsXzEyMzQ1Njc4OTA=}
+
+app:
+  whatsapp:
+    api-url: ${WHATSAPP_API_URL:https://graph.facebook.com/v22.0}
+    phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID:}
+    access-token: ${WHATSAPP_ACCESS_TOKEN:}
+    default-country-code: ${WHATSAPP_DEFAULT_COUNTRY_CODE:55}
+
