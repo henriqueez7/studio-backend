@@ -11,14 +11,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Configuration
-@Profile("dev")
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
@@ -39,8 +37,15 @@ public class DataInitializer implements CommandLineRunner {
     @Value("${app.seed.admin.phone:(00) 00000-0000}")
     private String adminPhone;
 
+    @Value("${app.seed.enabled:true}")
+    private boolean seedEnabled;
+
     @Override
     public void run(String... args) {
+        if (!seedEnabled) {
+            return;
+        }
+
         initializeAdminUser();
         initializeServices();
         initializeProducts();
