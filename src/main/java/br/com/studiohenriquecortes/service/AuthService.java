@@ -75,18 +75,16 @@ public class AuthService {
             throw new BusinessException("Nao foi possivel obter o email da conta Google.");
         }
 
-        User user = userRepository.findByEmail(email)
+        String normalizedEmail = email.trim().toLowerCase();
+
+        User user = userRepository.findByEmail(normalizedEmail)
                 .map(existing -> updateGoogleUser(existing, name))
-                .orElseGet(() -> createGoogleUser(email, name));
+                .orElseGet(() -> createGoogleUser(normalizedEmail, name));
 
         return buildAuthResponse(user);
     }
 
     private User updateGoogleUser(User existingUser, String name) {
-        if (existingUser.getRole() != Role.CLIENTE) {
-            throw new BusinessException("Login com Google disponivel apenas para clientes.");
-        }
-
         if (name != null && !name.isBlank()) {
             existingUser.setName(name);
         }
